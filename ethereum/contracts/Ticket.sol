@@ -48,14 +48,14 @@ contract Ticket {
         ticketDescription = TicketDescription;
         ticketPriceInDollars = TicketPriceInDollars;
         ticketStatus = TicketStatus({
-        isDeleted: false,
-        isPending: false,
-        isCompleted: false,
-        isActive: true
+            isDeleted: false,
+            isPending: false,
+            isCompleted: false,
+            isActive: true
         });
         approvalStatus = ApprovalStatus({
-        ownerApproved: false,
-        buyerApproved: false
+            ownerApproved: false,
+            buyerApproved: false
         });
     }
 

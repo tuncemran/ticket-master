@@ -9,26 +9,28 @@ import 'semantic-ui-css/semantic.min.css';
 import { Card } from 'semantic-ui-react';
 import Navbar from "../components/navbarComponent/Navbar";
 import LandingNotification from '../components/landingNotificationComponent/LandingNotification';
+import TicketComponent from '../components/ticketComponent/TicketComponent';
 
 class Landing extends Component {
 
     static async getInitialProps() {
         const tickets = await factory.methods.getDeployedTickets().call();
-
         return {tickets};
     }
 
     state = {
-        userAddress: []
+        userAddress: [],
+        allTickets: []
     }
 
     async componentDidMount() {
         const account = await web3.eth.getAccounts();
-        this.setState({userAddress: account});
+        const allTickets = await this.getAllTickets();
+        this.setState({userAddress: account, allTickets});
     }
 
     getAllTickets = async () => {
-
+        const allTickets = [];
         for (const ticketKey in this.props.tickets) {
             const ticketAddress = this.props.tickets[ticketKey];
             const theTicket = TicketContract(ticketAddress);
@@ -50,19 +52,39 @@ class Landing extends Component {
                 ticketStatus,
                 approvalStatus
             }
-            console.log(ticketObject)
-
+            /*console.log(ticketObject)*/
+            allTickets.push(ticketObject);
         }
+        return allTickets;
+    }
+
+    renderTickets() {
+        return this.state.allTickets.map((ticket, key) => {
+            if (ticket.ticketStatus[3] === true) {
+                return(
+                    <TicketComponent
+                        key={key}
+                        ownerName={ticket.ownerName}
+                        ownerFacebookAccount={ticket.ownerFacebookAccount}
+                        ticketTitle={ticket.ticketTitle}
+                        ticketDescription={ticket.ticketDescription}
+                        ticketPriceInDollars={ticket.ticketPriceInDollars}
+                    />
+                )
+            }
+        });
     }
 
     render() {
+        console.log(this.state.allTickets)
         return(
             <div>
                 <Navbar />
                 <LandingNotification userAddress={this.state.userAddress}/>
+                <div style={{margin: "auto", marginTop: 40, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridGap: 20, width: "70%"}}>
+                    {this.renderTickets()}
+                </div>
 
-                <div>At ticket: {this.props.tickets}</div>
-                <button onClick={this.getAllTickets}>lamxlka</button>
             </div>
         )
     }
