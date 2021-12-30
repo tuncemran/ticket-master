@@ -3,6 +3,12 @@ import web3 from "../ethereum/web3";
 import factory from "../ethereum/factory";
 import TicketContract from "../ethereum/ticket";
 
+import 'semantic-ui-css/semantic.min.css';
+
+
+import { Card } from 'semantic-ui-react';
+import Navbar from "../components/navbarComponent/Navbar";
+
 class Landing extends Component {
 
     static async getInitialProps() {
@@ -51,14 +57,24 @@ class Landing extends Component {
     render() {
         return(
             <div>
-                <div>landing page</div>
-                {this.state.userAddress.length > 0 ?
-                    <div>At address: {this.state.userAddress}</div> :
-                    <div>You need to madafakin login</div>
-                }
+                <Navbar />
+                <Card style={{margin: "auto", width: "70%"}}>
+                    <Card.Content>
+                        <Card.Header>Recent Activity</Card.Header>
+                    </Card.Content>
+                    <Card.Content>
+                        <div>landing page</div>
+                        {this.state.userAddress.length > 0 ?
+                            <div>At address: {this.state.userAddress}</div> :
+                            <div>You need to madafakin login</div>
+                        }
 
-                <div>At ticket: {this.props.tickets}</div>
-                <button onClick={this.getAllTickets}>lamxlka</button>
+                        <div>At ticket: {this.props.tickets}</div>
+                        <button onClick={this.getAllTickets}>lamxlka</button>
+                    </Card.Content>
+
+                </Card>
+
             </div>
         )
     }

@@ -1,0 +1,44 @@
+.navbar {
+    height: 100px;
+    width: 100%;
+    background-color: #030e22;
+    display: flex;
+}
+.navbar-div-container {
+    width: 70%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+    margin-top: 0;
+
+}
+.navbar-divs {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.navbar-links {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.fg-1 {
+    flex-grow: 1;
+}
+
+.fg-2 {
+    flex-grow: 2;
+}
+
+.fg-3 {
+    flex-grow: 3;
+}
+
+.fg-4 {
+    flex-grow: 4;
+}
