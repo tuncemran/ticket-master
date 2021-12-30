@@ -27,6 +27,12 @@
     text-decoration: none;
 }
 
+.landing-notification-container {
+    margin:auto !important;
+    width: 30% !important;
+    margin-top: 20px !important;
+}
+
 .fg-1 {
     flex-grow: 1;
 }

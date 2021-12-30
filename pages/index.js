@@ -8,6 +8,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 import { Card } from 'semantic-ui-react';
 import Navbar from "../components/navbarComponent/Navbar";
+import LandingNotification from '../components/landingNotificationComponent/LandingNotification';
 
 class Landing extends Component {
 
@@ -58,23 +59,10 @@ class Landing extends Component {
         return(
             <div>
                 <Navbar />
-                <Card style={{margin: "auto", width: "70%"}}>
-                    <Card.Content>
-                        <Card.Header>Recent Activity</Card.Header>
-                    </Card.Content>
-                    <Card.Content>
-                        <div>landing page</div>
-                        {this.state.userAddress.length > 0 ?
-                            <div>At address: {this.state.userAddress}</div> :
-                            <div>You need to madafakin login</div>
-                        }
+                <LandingNotification userAddress={this.state.userAddress}/>
 
-                        <div>At ticket: {this.props.tickets}</div>
-                        <button onClick={this.getAllTickets}>lamxlka</button>
-                    </Card.Content>
-
-                </Card>
-
+                <div>At ticket: {this.props.tickets}</div>
+                <button onClick={this.getAllTickets}>lamxlka</button>
             </div>
         )
     }
