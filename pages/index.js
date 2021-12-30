@@ -6,7 +6,6 @@ import TicketContract from "../ethereum/ticket";
 import 'semantic-ui-css/semantic.min.css';
 
 
-import { Card } from 'semantic-ui-react';
 import Navbar from "../components/navbarComponent/Navbar";
 import LandingNotification from '../components/landingNotificationComponent/LandingNotification';
 import TicketComponent from '../components/ticketComponent/TicketComponent';
@@ -50,7 +49,8 @@ class Landing extends Component {
                 ticketDescription,
                 ticketPriceInDollars,
                 ticketStatus,
-                approvalStatus
+                approvalStatus,
+                ticketAddress
             }
             /*console.log(ticketObject)*/
             allTickets.push(ticketObject);
@@ -60,6 +60,7 @@ class Landing extends Component {
 
     renderTickets() {
         return this.state.allTickets.map((ticket, key) => {
+            console.log(ticket.ticketAddress, typeof ticket.ticketAddress)
             if (ticket.ticketStatus[3] === true) {
                 return(
                     <TicketComponent
@@ -69,6 +70,7 @@ class Landing extends Component {
                         ticketTitle={ticket.ticketTitle}
                         ticketDescription={ticket.ticketDescription}
                         ticketPriceInDollars={ticket.ticketPriceInDollars}
+                        ticketAddress={ticket.ticketAddress}
                     />
                 )
             }
@@ -76,7 +78,6 @@ class Landing extends Component {
     }
 
     render() {
-        console.log(this.state.allTickets)
         return(
             <div>
                 <Navbar />
