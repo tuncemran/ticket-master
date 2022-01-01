@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "dev": "node server.js",
-    "build": "next build && node server.js"
+    "build": "next build",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
