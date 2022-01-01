@@ -7,7 +7,7 @@
     "test": "mocha",
     "dev": "node server.js",
     "build": "next build && next export",
-    "start": "next start"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +30,7 @@
     "next": "^12.0.7"
   },
   "engines": {
-    "node": "12.16.1"
+    "node": "12.16.1",
+    "npm": "7.5.0"
   }
 }
