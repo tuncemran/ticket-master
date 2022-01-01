@@ -19,7 +19,7 @@ export const getStaticPaths = async () => {
 
     return {
         paths,
-        fallback: false
+        fallback: 'blocking'
     }
 }
 
@@ -115,7 +115,7 @@ class TicketPage extends Component {
 
         // function
         await this.state.currentTicket.methods.deleteContract().send({
-            from: this.state.userAddress,
+            from: web3.utils.toChecksumAddress(this.state.userAddress),
             gas: '1000000'
         });
         // refresh state
@@ -132,7 +132,7 @@ class TicketPage extends Component {
 
         // function
         await this.state.currentTicket.methods.rejectBuyingRequest().send({
-            from: this.state.userAddress,
+            from: web3.utils.toChecksumAddress(this.state.userAddress),
             gas: '1000000'
         });
         // refresh state
@@ -149,7 +149,7 @@ class TicketPage extends Component {
 
         // function
         await this.state.currentTicket.methods.ownerApproveBuyingRequest().send({
-            from: this.state.userAddress,
+            from: web3.utils.toChecksumAddress(this.state.userAddress),
             gas: '1000000'
         });
         // refresh state
@@ -165,7 +165,7 @@ class TicketPage extends Component {
 
         // function
         await this.state.currentTicket.methods.buyerApproveBuyingRequest().send({
-            from: this.state.userAddress,
+            from: web3.utils.toChecksumAddress(this.state.userAddress),
             gas: '1000000'
         });
         // refresh state
@@ -182,8 +182,8 @@ class TicketPage extends Component {
 
           // function
           await this.state.currentTicket.methods.createBuyingRequest().send({
-              from: buyer,
-              value: web3.utils.toWei(priceEther.toString(), 'ether')
+              from: web3.utils.toChecksumAddress(this.state.userAddress),
+              value: web3.utils.toWei(((parseFloat(this.state.ticketObject.ticketPriceInDollars) / this.state.dollarRate).toFixed(4)).toString(), 'ether')
           })
           // refresh state
           await this.LifeCycleGetter();
