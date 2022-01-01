@@ -4,7 +4,7 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 
 export default ({ownerName,ownerFacebookAccount, ticketTitle, ticketDescription, ticketPriceInDollars, ticketAddress }) => {
     return(
-        <a href={process.env.NODE_ENV === 'production' ? `https://ticket-master.surge.sh/ticket/${ticketAddress}` :`http://localhost:3000/ticket/${ticketAddress}`}>
+        <a href={process.env.NODE_ENV === 'production' ? `https://immense-sands-81442.herokuapp.com/ticket/${ticketAddress}` :`http://localhost:3000/ticket/${ticketAddress}`}>
             <Card style={{margin: 0, float: "left", width: "300px", marginRight: "5%"}}>
                 <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
                 <Card.Content>
