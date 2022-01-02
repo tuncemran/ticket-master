@@ -88,7 +88,7 @@ class TicketPage extends Component {
 
         if (this.state.ticketObject.ticketStatus[0] === true) return(<span style={{color: "red"}}>Deleted</span>)
 
-        if (this.state.ticketObject.ticketStatus[1] === true) return(<span style={{color: "yellow"}}>Deleted</span>)
+        if (this.state.ticketObject.ticketStatus[1] === true) return(<span style={{color: "yellow"}}>Pending</span>)
 
         if (this.state.ticketObject.ticketStatus[2] === true) return(<span style={{color: "green"}}>Completed</span>)
 
@@ -103,90 +103,115 @@ class TicketPage extends Component {
 
         if (this.state.ticketObject.approvalStatus[0] === false && this.state.ticketObject.approvalStatus[1] === false) return(<span style={{color: "red"}}>Not Approved</span>)
 
-        if (this.state.ticketObject.approvalStatus[0] === true) return(<span style={{color: "yellow"}}>Owner Approved</span>)
+        if (this.state.ticketObject.approvalStatus['ownerApproved'] === true) return(<span style={{color: "yellow"}}>Owner Approved</span>)
 
-        if (this.state.ticketObject.approvalStatus[1] === true) return(<span style={{color: "yellow"}}>Buyer Approved</span>)
+        if (this.state.ticketObject.approvalStatus['buyerApproved'] === true) return(<span style={{color: "yellow"}}>Buyer Approved</span>)
     }
 
     onSubmitDelete = async () => {
+        try{
+            // set loader on
+            this.setState({isLoaderActive: true});
 
-        // set loader on
-        this.setState({isLoaderActive: true});
+            // function
+            await this.state.currentTicket.methods.deleteContract().send({
+                from: web3.utils.toChecksumAddress(this.state.userAddress),
+                gas: '1000000'
+            });
+            // refresh state
+            await this.LifeCycleGetter();
 
-        // function
-        await this.state.currentTicket.methods.deleteContract().send({
-            from: web3.utils.toChecksumAddress(this.state.userAddress),
-            gas: '1000000'
-        });
-        // refresh state
-        await this.LifeCycleGetter();
+        }
+        catch (e) {
+            console.log(e)
+        }
 
         // set loader off
         this.setState({isLoaderActive: false});
     }
 
     onSubmitReject = async () => {
+        try{
+            // set loader on
+            this.setState({isLoaderActive: true});
 
-        // set loader on
-        this.setState({isLoaderActive: true});
+            // function
+            await this.state.currentTicket.methods.rejectBuyingRequest().send({
+                from: web3.utils.toChecksumAddress(this.state.userAddress),
+                gas: '1000000'
+            });
+            // refresh state
+            await this.LifeCycleGetter();
 
-        // function
-        await this.state.currentTicket.methods.rejectBuyingRequest().send({
-            from: web3.utils.toChecksumAddress(this.state.userAddress),
-            gas: '1000000'
-        });
-        // refresh state
-        await this.LifeCycleGetter();
+        }
+        catch (e) {
+            console.log(e)
+        }
 
         // set loader off
         this.setState({isLoaderActive: false});
     }
 
     onSubmitApproveOwner = async () => {
+        try{
+            // set loader on
+            this.setState({isLoaderActive: true});
 
-        // set loader on
-        this.setState({isLoaderActive: true});
+            // function
+            await this.state.currentTicket.methods.ownerApproveBuyingRequest().send({
+                from: web3.utils.toChecksumAddress(this.state.userAddress),
+                gas: '1000000'
+            });
+            // refresh state
+            await this.LifeCycleGetter();
 
-        // function
-        await this.state.currentTicket.methods.ownerApproveBuyingRequest().send({
-            from: web3.utils.toChecksumAddress(this.state.userAddress),
-            gas: '1000000'
-        });
-        // refresh state
-        await this.LifeCycleGetter();
+        }
+        catch (e) {
+            console.log(e)
+        }
 
         // set loader off
         this.setState({isLoaderActive: false});
     }
     onSubmitApproveBuyer = async () => {
+        try{
+            // set loader on
+            this.setState({isLoaderActive: true});
 
-        // set loader on
-        this.setState({isLoaderActive: true});
+            // function
+            await this.state.currentTicket.methods.buyerApproveBuyingRequest().send({
+                from: web3.utils.toChecksumAddress(this.state.userAddress),
+                gas: '1000000'
+            });
+            // refresh state
+            await this.LifeCycleGetter();
 
-        // function
-        await this.state.currentTicket.methods.buyerApproveBuyingRequest().send({
-            from: web3.utils.toChecksumAddress(this.state.userAddress),
-            gas: '1000000'
-        });
-        // refresh state
-        await this.LifeCycleGetter();
+        }
+        catch (e) {
+            console.log(e)
+        }
 
         // set loader off
         this.setState({isLoaderActive: false});
     }
 
       onSubmitCreate = async () => {
+        try{
+            // set loader on
+            this.setState({isLoaderActive: true});
 
-          // set loader on
-          this.setState({isLoaderActive: true});
+            // function
+            await this.state.currentTicket.methods.createBuyingRequest().send({
+                from: web3.utils.toChecksumAddress(this.state.userAddress),
+                value: web3.utils.toWei(((parseFloat(this.state.ticketObject.ticketPriceInDollars) / this.state.dollarRate).toFixed(18)).toString(), 'ether')
+            })
+            // refresh state
+            await this.LifeCycleGetter();
 
-          // function
-          await this.state.currentTicket.methods.createBuyingRequest().send({
-              from: web3.utils.toChecksumAddress(this.state.userAddress),
-              value: web3.utils.toWei(((parseFloat(this.state.ticketObject.ticketPriceInDollars) / this.state.dollarRate).toFixed(4)).toString(), 'ether')
-          })
-          // refresh state
-          await this.LifeCycleGetter();
+        }
+        catch (e) {
+            console.log(e)
+        }
 
           // set loader off
           this.setState({isLoaderActive: false});
